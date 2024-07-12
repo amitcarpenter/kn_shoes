@@ -133,7 +133,7 @@
         }
 
         .profit-percentage {
-            font-weight: bold;
+            /* font-weight: bold; */
             color: var(--success-color);
         }
     </style>
@@ -150,27 +150,11 @@
             </div>
 
             <div class="form-group">
-                <label class="required">Product Type</label>
-                <div class="checkbox-group" role="group" aria-labelledby="product_type_label">
-                    <label><input type="checkbox" name="product_type" value="Slipper"> Slipper</label>
-                    <label><input type="checkbox" name="product_type" value="Slide"> Slide</label>
-                    <label><input type="checkbox" name="product_type" value="Crocs"> Crocs</label>
-                    <label><input type="checkbox" name="product_type" value="Flip Flop"> Flip Flop</label>
-                    <label><input type="checkbox" name="product_type" value="Walker"> Walker</label>
-                    <label><input type="checkbox" name="product_type" value="Shoes"> Shoes</label>
-                </div>
-                <div id="product_type_error" class="error"></div>
+                <label for="customer_name">Customer Name:</label>
+                <input type="text" id="customer_name" name="customer_name" class="form-control">
             </div>
 
-            <div class="form-group">
-                <label class="required">Category</label>
-                <div class="checkbox-group" role="group" aria-labelledby="category_label">
-                    <label><input type="checkbox" name="category" value="Men"> Men</label>
-                    <label><input type="checkbox" name="category" value="Women"> Women</label>
-                    <label><input type="checkbox" name="category" value="Kids"> Kids</label>
-                </div>
-                <div id="category_error" class="error"></div>
-            </div>
+
 
             <div class="form-group">
                 <label for="size" class="required">Size</label>
@@ -178,16 +162,6 @@
                 <div id="size_error" class="error"></div>
             </div>
 
-            <div class="form-group">
-                <label class="required">Color</label>
-                <div class="checkbox-group" role="group" aria-labelledby="color_label">
-                    <label><input type="checkbox" name="color" value="Black"> Black</label>
-                    <label><input type="checkbox" name="color" value="White"> White</label>
-                    <label><input type="checkbox" name="color" value="Red"> Red</label>
-                    <label><input type="checkbox" name="color" value="Other"> Other</label>
-                </div>
-                <div id="color_error" class="error"></div>
-            </div>
 
             <div class="form-group">
                 <label for="salePrice" class="required">Sale Price</label>
@@ -226,6 +200,42 @@
                 <textarea id="description" name="description" rows="3" placeholder="Enter description"></textarea>
             </div>
 
+
+            <div class="form-group">
+                <label class="required">Color</label>
+                <div class="checkbox-group" role="group" aria-labelledby="color_label">
+                    <label><input type="checkbox" name="color" value="Black"> Black</label>
+                    <label><input type="checkbox" name="color" value="White"> White</label>
+                    <label><input type="checkbox" name="color" value="Red"> Red</label>
+                    <label><input type="checkbox" name="color" value="Other"> Other</label>
+                </div>
+                <div id="color_error" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Product Type</label>
+                <div class="checkbox-group" role="group" aria-labelledby="product_type_label">
+                    <label><input type="checkbox" name="product_type" value="Slipper"> Slipper</label>
+                    <label><input type="checkbox" name="product_type" value="Slide"> Slide</label>
+                    <label><input type="checkbox" name="product_type" value="Crocs"> Crocs</label>
+                    <label><input type="checkbox" name="product_type" value="Flip Flop"> Flip Flop</label>
+                    <label><input type="checkbox" name="product_type" value="Walker"> Walker</label>
+                    <label><input type="checkbox" name="product_type" value="Shoes"> Shoes</label>
+                </div>
+                <div id="product_type_error" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Category</label>
+                <div class="checkbox-group" role="group" aria-labelledby="category_label">
+                    <label><input type="checkbox" name="category" value="Men"> Men</label>
+                    <label><input type="checkbox" name="category" value="Women"> Women</label>
+                    <label><input type="checkbox" name="category" value="Kids"> Kids</label>
+                </div>
+                <div id="category_error" class="error"></div>
+            </div>
+
+
             <div class="form-group">
                 <label class="required">Brand</label>
                 <div class="checkbox-group" role="group" aria-labelledby="brand_label">
@@ -263,7 +273,7 @@
 
 
             <div class="form-group">
-                <label>Payment Method</label>
+                <label class="required">Payment Method</label>
                 <div class="checkbox-group" role="group" aria-labelledby="payment_method_label">
                     <label><input type="checkbox" name="payment_method" value="Cash"> Cash</label>
                     <label><input type="checkbox" name="payment_method" value="Online"> Online</label>
@@ -334,6 +344,7 @@
                 return true;
             };
 
+
             // Calculate and display profit percentage
             const calculateProfitPercentage = () => {
                 const salePrice = parseFloat(document.getElementById('salePrice').value) || 0;
@@ -342,9 +353,14 @@
 
                 if (costPrice > 0 && salePrice > costPrice) {
                     const profitPercentage = ((salePrice - costPrice) / costPrice * 100).toFixed(2);
-                    profitPercentageElement.textContent = `Profit Percentage: ${profitPercentage}%`;
+                    const profieAmount = salePrice - costPrice
+                    profitPercentageElement.textContent = `Profit Percentage: ${profitPercentage}%  && Profit Amount : ${profieAmount}`;
+
+                    profitPercentageElement.style.color = 'green';
+
                 } else {
-                    profitPercentageElement.textContent = '';
+                    profitPercentageElement.textContent = 'Cost price should be less than sale price';
+                    profitPercentageElement.style.color = 'red';
                 }
             };
 
