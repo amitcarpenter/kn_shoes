@@ -1,125 +1,434 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Product</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f5f5f5;
-    }
-    .container {
-      background-color: #fff;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      width: 90%;
-      max-width: 500px;
-      margin: auto;
-    }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-    .form-group input, 
-    .form-group select, 
-    .form-group textarea {
-      width: 100%;
-      padding: 8px;
-      box-sizing: border-box;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .form-group textarea {
-      resize: vertical;
-    }
-    .btn {
-      background-color: #28a745;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    .btn:hover {
-      background-color: #218838;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f5f5f5;
+            --text-color: #333;
+            --error-color: #e74c3c;
+            --success-color: #2ecc71;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--secondary-color);
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group label.required::after {
+            content: '*';
+            color: var(--error-color);
+            margin-left: 0.25rem;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="email"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="number"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+
+        .error {
+            color: var(--error-color);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #3a7abd;
+        }
+
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 1rem;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .form-group {
+                margin-bottom: 1rem;
+            }
+
+            .form-group input[type="text"],
+            .form-group input[type="number"],
+            .form-group input[type="email"],
+            .form-group select,
+            .form-group textarea {
+                padding: 0.5rem;
+                font-size: 16px;
+            }
+
+            .checkbox-group {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .checkbox-group label {
+                width: 100%;
+            }
+
+            .btn {
+                padding: 0.75rem 1rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <div class="container">
-    <h2>Add Product</h2>
-    <form action="http://localhost:4012/admin/add-product" method="POST" enctype="multipart/form-data">
-      <div class="form-group">
-        <label for="product_name">Product Name</label>
-        <input type="text" id="product_name" name="product_name" required>
-      </div>
-      <div class="form-group">
-        <label for="product_type">Product Type</label>
-        <input type="text" id="product_type" name="product_type" required>
-      </div>
-      <div class="form-group">
-        <label for="category">Category</label>
-        <input type="text" id="category" name="category" required>
-      </div>
-      <div class="form-group">
-        <label for="size">Size</label>
-        <input type="text" id="size" name="size" required>
-      </div>
-      <div class="form-group">
-        <label for="color">Color</label>
-        <input type="text" id="color" name="color" required>
-      </div>
-      <div class="form-group">
-        <label for="salePrice">Sale Price</label>
-        <input type="text" id="salePrice" name="salePrice" required>
-      </div>
-      <div class="form-group">
-        <label for="costPrice">Cost Price</label>
-        <input type="text" id="costPrice" name="costPrice" required>
-      </div>
-      <div class="form-group">
-        <label for="customer_name">Customer Name</label>
-        <input type="text" id="customer_name" name="customer_name" required>
-      </div>
-      <div class="form-group">
-        <label for="cashAmount">Cash Amount</label>
-        <input type="text" id="cashAmount" name="cashAmount" required>
-      </div>
-      <div class="form-group">
-        <label for="quantity">Quantity</label>
-        <input type="number" id="quantity" name="quantity" required>
-      </div>
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea id="description" name="description" rows="3" required></textarea>
-      </div>
-      <div class="form-group">
-        <label for="brand">Brand</label>
-        <input type="text" id="brand" name="brand" required>
-      </div>
-      <div class="form-group">
-        <label for="payment_method">Payment Method</label>
-        <input type="text" id="payment_method" name="payment_method" required>
-      </div>
-      <div class="form-group">
-        <label for="product_image">Product Image</label>
-        <input type="file" id="product_image" name="product_image" required>
-      </div>
-      <button type="submit" class="btn">Add Product</button>
-    </form>
-  </div>
+    <div class="container">
+        <h2>Add Product</h2>
+        <form id="productForm" action="/admin/add-product" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="product_name" class="required">Product Name</label>
+                <input type="text" id="product_name" name="product_name" placeholder="Enter product name" required
+                    aria-required="true">
+                <div id="product_name_error" class="error" aria-live="polite"></div>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Product Type</label>
+                <div class="checkbox-group" role="group" aria-labelledby="product_type_label">
+                    <label><input type="checkbox" name="product_type" value="Slipper"> Slipper</label>
+                    <label><input type="checkbox" name="product_type" value="Slide"> Slide</label>
+                    <label><input type="checkbox" name="product_type" value="Crocs"> Crocs</label>
+                    <label><input type="checkbox" name="product_type" value="Flip Flop"> Flip Flop</label>
+                    <label><input type="checkbox" name="product_type" value="Walker"> Walker</label>
+                    <label><input type="checkbox" name="product_type" value="Shoes"> Shoes</label>
+                </div>
+                <div id="product_type_error" class="error" aria-live="polite"></div>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Category</label>
+                <div class="checkbox-group" role="group" aria-labelledby="category_label">
+                    <label><input type="checkbox" name="category" value="Men"> Men</label>
+                    <label><input type="checkbox" name="category" value="Women"> Women</label>
+                    <label><input type="checkbox" name="category" value="Kids"> Kids</label>
+                </div>
+                <div id="category_error" class="error" aria-live="polite"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="size" class="required">Size</label>
+                <input type="text" id="size" name="size" placeholder="Enter size" required aria-required="true">
+                <div id="size_error" class="error" aria-live="polite"></div>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Color</label>
+                <div class="checkbox-group" role="group" aria-labelledby="color_label">
+                    <label><input type="checkbox" name="color" value="Black"> Black</label>
+                    <label><input type="checkbox" name="color" value="White"> White</label>
+                    <label><input type="checkbox" name="color" value="Red"> Red</label>
+                    <label><input type="checkbox" name="color" value="Other"> Other</label>
+                </div>
+                <div id="color_error" class="error" aria-live="polite"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="salePrice" class="required">Sale Price</label>
+                <input type="number" id="salePrice" name="salePrice" placeholder="Enter sale price" required step="0.01"
+                    min="0" aria-required="true">
+                <div id="salePrice_error" class="error" aria-live="polite"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="costPrice" class="required">Cost Price</label>
+                <input type="number" id="costPrice" name="costPrice" placeholder="Enter cost price" required step="0.01"
+                    min="0" aria-required="true">
+                <div id="costPrice_error" class="error" aria-live="polite"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="customer_name">Customer Name</label>
+                <input type="text" id="customer_name" name="customer_name" placeholder="Enter customer name">
+                <div id="customer_name_error" class="error" aria-live="polite"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="cashAmount" class="required">Cash Amount</label>
+                <input type="number" id="cashAmount" name="cashAmount" placeholder="Enter cash amount" required
+                    step="0.01" min="0" aria-required="true">
+                <div id="cashAmount_error" class="error" aria-live="polite"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" min="1">
+                <div id="quantity_error" class="error" aria-live="polite"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="3" placeholder="Enter description"></textarea>
+                <div id="description_error" class="error" aria-live="polite"></div>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Brand</label>
+                <div class="checkbox-group" role="group" aria-labelledby="brand_label">
+                    <label><input type="checkbox" name="brand" value="Campus"> Campus</label>
+                    <label><input type="checkbox" name="brand" value="Sparx"> Sparx</label>
+                    <label><input type="checkbox" name="brand" value="Lakhani"> Lakhani</label>
+                    <label><input type="checkbox" name="brand" value="Touch"> Touch</label>
+                    <label><input type="checkbox" name="brand" value="Abros"> Abros</label>
+                    <label><input type="checkbox" name="brand" value="Addoxy"> Addoxy</label>
+                    <label><input type="checkbox" name="brand" value="TRV"> TRV</label>
+                    <label><input type="checkbox" name="brand" value="Nike"> Nike</label>
+                    <label><input type="checkbox" name="brand" value="Puma"> Puma</label>
+                    <label><input type="checkbox" name="brand" value="Adidas"> Adidas</label>
+                    <label><input type="checkbox" name="brand" value="Asics"> Asics</label>
+                    <label><input type="checkbox" name="brand" value="VKC Pride"> VKC Pride</label>
+                    <label><input type="checkbox" name="brand" value="Walkaro"> Walkaro</label>
+                    <label><input type="checkbox" name="brand" value="Paragon"> Paragon</label>
+                    <label><input type="checkbox" name="brand" value="Indus"> Indus</label>
+                    <label><input type="checkbox" name="brand" value="I Plus"> I Plus</label>
+                    <label><input type="checkbox" name="brand" value="Loose Chappal"> Loose Chappal</label>
+                    <label><input type="checkbox" name="brand" value="Non Brand Other"> Non Brand Other</label>
+                    <label><input type="checkbox" name="brand" value="Appoxy"> Appoxy</label>
+                </div>
+                <div id="brand_error" class="error" aria-live="polite"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="payment_method">Payment Method</label>
+                <select id="payment_method" name="payment_method">
+                    <option value="">Select payment method</option>
+                    <option value="Cash">Cash</option>
+                    <option value="Online">Online</option>
+                </select>
+                <div id="payment_method_error" class="error" aria-live="polite"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="product_image">Product Image</label>
+                <input type="file" id="product_image" name="product_image" accept="image/*">
+                <div id="product_image_error" class="error" aria-live="polite"></div>
+            </div>
+
+            <button type="submit" class="btn" id="submitBtn">Add Product</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('productForm');
+            const submitBtn = document.getElementById('submitBtn');
+
+            const validateField = async (fieldId, errorId, validationFunction) => {
+                const input = document.getElementById(fieldId);
+                const error = document.getElementById(errorId);
+                const value = input.type === 'checkbox' ?
+                    Array.from(document.querySelectorAll(`input[name="${fieldId}"]:checked`)).map(cb => cb.value) :
+                    input.value.trim();
+
+                if (input.required && (value === '' || (Array.isArray(value) && value.length === 0))) {
+                    error.textContent = 'This field is required';
+                    return false;
+                }
+
+                const validationResult = validationFunction(value);
+                if (validationResult !== true) {
+                    error.textContent = validationResult;
+                    return false;
+                }
+
+                error.textContent = '';
+                return true;
+            };
+
+            const validateProductName = (value) => {
+                return value.length >= 3 ? true : 'Product name must be at least 3 characters long';
+            };
+
+            const validatePrice = (value) => {
+                return value > 0 ? true : 'Price must be greater than 0';
+            };
+
+            const validateEmail = (value) => {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(value) ? true : 'Invalid email format';
+            };
+
+            const validateCheckboxGroup = (values) => {
+                return values.length > 0 ? true : 'Please select at least one option';
+            };
+
+            const fields = [
+                { id: 'product_name', errorId: 'product_name_error', validate: validateProductName },
+                { id: 'product_type', errorId: 'product_type_error', validate: validateCheckboxGroup },
+                { id: 'category', errorId: 'category_error', validate: validateCheckboxGroup },
+                { id: 'size', errorId: 'size_error', validate: () => true },
+                { id: 'salePrice', errorId: 'salePrice_error', validate: validatePrice },
+                { id: 'costPrice', errorId: 'costPrice_error', validate: validatePrice },
+                { id: 'cashAmount', errorId: 'cashAmount_error', validate: validatePrice },
+                { id: 'color', errorId: 'color_error', validate: validateCheckboxGroup },
+                { id: 'customer_name', errorId: 'customer_name_error', validate: () => true },
+                { id: 'quantity', errorId: 'quantity_error', validate: (value) => value > 0 ? true : 'Quantity must be greater than 0' },
+                { id: 'description', errorId: 'description_error', validate: () => true },
+                { id: 'brand', errorId: 'brand_error', validate: validateCheckboxGroup },
+                { id: 'payment_method', errorId: 'payment_method_error', validate: () => true },
+                { id: 'product_image', errorId: 'product_image_error', validate: () => true }
+            ];
+
+            fields.forEach(({ id, errorId, validate }) => {
+                const input = document.getElementById(id);
+                if (input) {
+                    input.addEventListener('input', () => {
+                        validateField(id, errorId, validate);
+                        checkFormValidity();
+                    });
+
+                    if (input.type === 'checkbox') {
+                        const checkboxes = document.querySelectorAll(`input[name="${id}"]`);
+                        checkboxes.forEach(checkbox => {
+                            checkbox.addEventListener('change', () => {
+                                validateField(id, errorId, validate);
+                                checkFormValidity();
+                            });
+                        });
+                    }
+                }
+            });
+
+            const checkFormValidity = () => {
+                const isValid = fields.every(({ id, errorId, validate }) =>
+                    validateField(id, errorId, validate)
+                );
+                submitBtn.disabled = !isValid;
+            };
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const isValid = fields.every(({ id, errorId, validate }) =>
+                    validateField(id, errorId, validate)
+                );
+
+                if (isValid) {
+                    try {
+                        const formData = new FormData(form);
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: formData
+                        });
+
+                        if (response.ok) {
+                            alert('Product added successfully!');
+                            form.reset();
+                        } else {
+                            const errorData = await response.json();
+                            alert(`Error: ${errorData.message}`);
+                        }
+                    } catch (error) {
+                        console.error('Error submitting form:', error);
+                        alert('An error occurred while submitting the form. Please try again.');
+                    }
+                }
+            });
+
+            // Initial form validity check
+            checkFormValidity();
+        });
+    </script>
 </body>
+
 </html>

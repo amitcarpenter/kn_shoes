@@ -96,24 +96,3 @@ const ProductSchema: Schema = new Schema({
 
 // Create and export the model
 export default mongoose.model<IProduct>('Product', ProductSchema);
-
-
-// please create a model for me in mongodb and typescript in node js
-
-// 1. product_name,
-// 2. product_type [Sliper, slide,crocks,flip flop, walker, shoes]
-// 3. category [men , women, kids]
-// 4. size
-// 5. color [black , white , red , other recomendd colro]
-// 6. salePrice
-// 7. costPrice
-// 8. discountPercentage
-// 9. customer_name
-// 10. cashAmount
-// 11. due amount
-// 12. quanity
-// 13. description
-// 14. brand [Campus, Sparx ,lakhani, touch, abros, addoxy,trv, nike, puma, adidas, Asics,  vkc pride, walkaro, paragon, indus , I plus, loose chappal, non brand other, appoxy, sky gold , fly max]
-// 15. payment_method
-// 16. profileMargin
-// 17. product_image 
