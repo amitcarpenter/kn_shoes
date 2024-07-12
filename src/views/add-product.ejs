@@ -205,6 +205,11 @@
             </div>
 
             <div class="form-group">
+                <label>Profit Percentage</label>
+                <div id="profitPercentage" class="profit-percentage"></div>
+            </div>
+
+            <div class="form-group">
                 <label for="cashAmount" class="required">Cash Amount</label>
                 <input type="number" id="cashAmount" name="cashAmount" placeholder="Enter cash amount" required
                     step="0.01" min="0">
@@ -247,13 +252,23 @@
                 <div id="brand_error" class="error"></div>
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="payment_method">Payment Method</label>
                 <select id="payment_method" name="payment_method">
                     <option value="">Select payment method</option>
                     <option value="Cash">Cash</option>
                     <option value="Online">Online</option>
                 </select>
+            </div> -->
+
+
+            <div class="form-group">
+                <label>Payment Method</label>
+                <div class="checkbox-group" role="group" aria-labelledby="payment_method_label">
+                    <label><input type="checkbox" name="payment_method" value="Cash"> Cash</label>
+                    <label><input type="checkbox" name="payment_method" value="Online"> Online</label>
+                </div>
+                <div id="payment_method_error" class="error"></div>
             </div>
 
             <div class="form-group">
@@ -286,7 +301,7 @@
             };
 
             // Apply single checkbox selection to all checkbox groups
-            const checkboxGroups = ['product_type', 'category', 'color', 'brand'];
+            const checkboxGroups = ['product_type', 'category', 'color', 'brand', 'payment_method'];
             checkboxGroups.forEach(groupName => {
                 const checkboxes = document.querySelectorAll(`input[name="${groupName}"]`);
                 handleSingleCheckboxSelection(checkboxes);
@@ -336,7 +351,7 @@
             // Validate form
             const validateForm = () => {
                 const requiredFields = form.querySelectorAll('input[required], select[required], textarea[required]');
-                const requiredCheckboxGroups = ['product_type', 'category', 'color', 'brand'];
+                const requiredCheckboxGroups = ['product_type', 'category', 'color', 'brand', 'payment_method'];
 
                 let isValid = true;
 

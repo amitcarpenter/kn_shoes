@@ -48,7 +48,7 @@ enum Brand {
 }
 
 enum PaymentMethod {
-  Online = 'PhonePay',
+  Online = 'Online',
   Cash = 'Cash',
 }
 
