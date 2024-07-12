@@ -132,42 +132,9 @@
             cursor: not-allowed;
         }
 
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            .container {
-                padding: 1rem;
-                width: 100%;
-                max-width: 100%;
-            }
-
-            .form-group {
-                margin-bottom: 1rem;
-            }
-
-            .form-group input[type="text"],
-            .form-group input[type="number"],
-            .form-group input[type="email"],
-            .form-group select,
-            .form-group textarea {
-                padding: 0.5rem;
-                font-size: 16px;
-            }
-
-            .checkbox-group {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-
-            .checkbox-group label {
-                width: 100%;
-            }
-
-            .btn {
-                padding: 0.75rem 1rem;
-            }
+        .profit-percentage {
+            font-weight: bold;
+            color: var(--success-color);
         }
     </style>
 </head>
@@ -178,9 +145,8 @@
         <form id="productForm" action="/admin/add-product" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="product_name" class="required">Product Name</label>
-                <input type="text" id="product_name" name="product_name" placeholder="Enter product name" required
-                    aria-required="true">
-                <div id="product_name_error" class="error" aria-live="polite"></div>
+                <input type="text" id="product_name" name="product_name" placeholder="Enter product name" required>
+                <div id="product_name_error" class="error"></div>
             </div>
 
             <div class="form-group">
@@ -193,7 +159,7 @@
                     <label><input type="checkbox" name="product_type" value="Walker"> Walker</label>
                     <label><input type="checkbox" name="product_type" value="Shoes"> Shoes</label>
                 </div>
-                <div id="product_type_error" class="error" aria-live="polite"></div>
+                <div id="product_type_error" class="error"></div>
             </div>
 
             <div class="form-group">
@@ -203,13 +169,13 @@
                     <label><input type="checkbox" name="category" value="Women"> Women</label>
                     <label><input type="checkbox" name="category" value="Kids"> Kids</label>
                 </div>
-                <div id="category_error" class="error" aria-live="polite"></div>
+                <div id="category_error" class="error"></div>
             </div>
 
             <div class="form-group">
                 <label for="size" class="required">Size</label>
-                <input type="text" id="size" name="size" placeholder="Enter size" required aria-required="true">
-                <div id="size_error" class="error" aria-live="polite"></div>
+                <input type="number" id="size" name="size" placeholder="Enter size" required>
+                <div id="size_error" class="error"></div>
             </div>
 
             <div class="form-group">
@@ -220,46 +186,39 @@
                     <label><input type="checkbox" name="color" value="Red"> Red</label>
                     <label><input type="checkbox" name="color" value="Other"> Other</label>
                 </div>
-                <div id="color_error" class="error" aria-live="polite"></div>
+                <div id="color_error" class="error"></div>
             </div>
 
             <div class="form-group">
                 <label for="salePrice" class="required">Sale Price</label>
                 <input type="number" id="salePrice" name="salePrice" placeholder="Enter sale price" required step="0.01"
-                    min="0" aria-required="true">
-                <div id="salePrice_error" class="error" aria-live="polite"></div>
+                    min="0">
+                <div id="salePrice_error" class="error"></div>
             </div>
 
             <div class="form-group">
                 <label for="costPrice" class="required">Cost Price</label>
                 <input type="number" id="costPrice" name="costPrice" placeholder="Enter cost price" required step="0.01"
-                    min="0" aria-required="true">
-                <div id="costPrice_error" class="error" aria-live="polite"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="customer_name">Customer Name</label>
-                <input type="text" id="customer_name" name="customer_name" placeholder="Enter customer name">
-                <div id="customer_name_error" class="error" aria-live="polite"></div>
+                    min="0">
+                <div id="costPrice_error" class="error"></div>
+                <div id="profitPercentage" class="profit-percentage"></div>
             </div>
 
             <div class="form-group">
                 <label for="cashAmount" class="required">Cash Amount</label>
                 <input type="number" id="cashAmount" name="cashAmount" placeholder="Enter cash amount" required
-                    step="0.01" min="0" aria-required="true">
-                <div id="cashAmount_error" class="error" aria-live="polite"></div>
+                    step="0.01" min="0">
+                <div id="cashAmount_error" class="error"></div>
             </div>
 
             <div class="form-group">
                 <label for="quantity">Quantity</label>
-                <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" min="1">
-                <div id="quantity_error" class="error" aria-live="polite"></div>
+                <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" min="1" value="1">
             </div>
 
             <div class="form-group">
                 <label for="description">Description</label>
                 <textarea id="description" name="description" rows="3" placeholder="Enter description"></textarea>
-                <div id="description_error" class="error" aria-live="polite"></div>
             </div>
 
             <div class="form-group">
@@ -282,10 +241,10 @@
                     <label><input type="checkbox" name="brand" value="Indus"> Indus</label>
                     <label><input type="checkbox" name="brand" value="I Plus"> I Plus</label>
                     <label><input type="checkbox" name="brand" value="Loose Chappal"> Loose Chappal</label>
-                    <label><input type="checkbox" name="brand" value="Non Brand Other"> Non Brand Other</label>
                     <label><input type="checkbox" name="brand" value="Appoxy"> Appoxy</label>
+                    <label><input type="checkbox" name="brand" value="Non Brand Other"> Non Brand Other</label>
                 </div>
-                <div id="brand_error" class="error" aria-live="polite"></div>
+                <div id="brand_error" class="error"></div>
             </div>
 
             <div class="form-group">
@@ -295,13 +254,11 @@
                     <option value="Cash">Cash</option>
                     <option value="Online">Online</option>
                 </select>
-                <div id="payment_method_error" class="error" aria-live="polite"></div>
             </div>
 
             <div class="form-group">
                 <label for="product_image">Product Image</label>
                 <input type="file" id="product_image" name="product_image" accept="image/*">
-                <div id="product_image_error" class="error" aria-live="polite"></div>
             </div>
 
             <button type="submit" class="btn" id="submitBtn">Add Product</button>
@@ -313,97 +270,104 @@
             const form = document.getElementById('productForm');
             const submitBtn = document.getElementById('submitBtn');
 
-            const validateField = async (fieldId, errorId, validationFunction) => {
-                const input = document.getElementById(fieldId);
-                const error = document.getElementById(errorId);
-                const value = input.type === 'checkbox' ?
-                    Array.from(document.querySelectorAll(`input[name="${fieldId}"]:checked`)).map(cb => cb.value) :
-                    input.value.trim();
+            // Function to handle single checkbox selection
+            const handleSingleCheckboxSelection = (checkboxGroup) => {
+                checkboxGroup.forEach(checkbox => {
+                    checkbox.addEventListener('change', () => {
+                        if (checkbox.checked) {
+                            checkboxGroup.forEach(otherCheckbox => {
+                                if (otherCheckbox !== checkbox) {
+                                    otherCheckbox.checked = false;
+                                }
+                            });
+                        }
+                    });
+                });
+            };
 
-                if (input.required && (value === '' || (Array.isArray(value) && value.length === 0))) {
-                    error.textContent = 'This field is required';
+            // Apply single checkbox selection to all checkbox groups
+            const checkboxGroups = ['product_type', 'category', 'color', 'brand'];
+            checkboxGroups.forEach(groupName => {
+                const checkboxes = document.querySelectorAll(`input[name="${groupName}"]`);
+                handleSingleCheckboxSelection(checkboxes);
+            });
+
+            // Validate individual field
+            const validateField = (field) => {
+                const errorElement = document.getElementById(`${field.id}_error`);
+                if (field.required && !field.value.trim()) {
+                    errorElement.textContent = 'This field is required';
                     return false;
                 }
-
-                const validationResult = validationFunction(value);
-                if (validationResult !== true) {
-                    error.textContent = validationResult;
+                if (field.type === 'number' && parseFloat(field.value) <= 0) {
+                    errorElement.textContent = 'Value must be greater than 0';
                     return false;
                 }
-
-                error.textContent = '';
+                errorElement.textContent = '';
                 return true;
             };
 
-            const validateProductName = (value) => {
-                return value.length >= 3 ? true : 'Product name must be at least 3 characters long';
-            };
-
-            const validatePrice = (value) => {
-                return value > 0 ? true : 'Price must be greater than 0';
-            };
-
-            const validateEmail = (value) => {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                return emailRegex.test(value) ? true : 'Invalid email format';
-            };
-
-            const validateCheckboxGroup = (values) => {
-                return values.length > 0 ? true : 'Please select at least one option';
-            };
-
-            const fields = [
-                { id: 'product_name', errorId: 'product_name_error', validate: validateProductName },
-                { id: 'product_type', errorId: 'product_type_error', validate: validateCheckboxGroup },
-                { id: 'category', errorId: 'category_error', validate: validateCheckboxGroup },
-                { id: 'size', errorId: 'size_error', validate: () => true },
-                { id: 'salePrice', errorId: 'salePrice_error', validate: validatePrice },
-                { id: 'costPrice', errorId: 'costPrice_error', validate: validatePrice },
-                { id: 'cashAmount', errorId: 'cashAmount_error', validate: validatePrice },
-                { id: 'color', errorId: 'color_error', validate: validateCheckboxGroup },
-                { id: 'customer_name', errorId: 'customer_name_error', validate: () => true },
-                { id: 'quantity', errorId: 'quantity_error', validate: (value) => value > 0 ? true : 'Quantity must be greater than 0' },
-                { id: 'description', errorId: 'description_error', validate: () => true },
-                { id: 'brand', errorId: 'brand_error', validate: validateCheckboxGroup },
-                { id: 'payment_method', errorId: 'payment_method_error', validate: () => true },
-                { id: 'product_image', errorId: 'product_image_error', validate: () => true }
-            ];
-
-            fields.forEach(({ id, errorId, validate }) => {
-                const input = document.getElementById(id);
-                if (input) {
-                    input.addEventListener('input', () => {
-                        validateField(id, errorId, validate);
-                        checkFormValidity();
-                    });
-
-                    if (input.type === 'checkbox') {
-                        const checkboxes = document.querySelectorAll(`input[name="${id}"]`);
-                        checkboxes.forEach(checkbox => {
-                            checkbox.addEventListener('change', () => {
-                                validateField(id, errorId, validate);
-                                checkFormValidity();
-                            });
-                        });
-                    }
+            // Validate checkbox group
+            const validateCheckboxGroup = (groupName) => {
+                const checkboxes = document.querySelectorAll(`input[name="${groupName}"]:checked`);
+                const errorElement = document.getElementById(`${groupName}_error`);
+                if (checkboxes.length === 0) {
+                    errorElement.textContent = 'Please select one option';
+                    return false;
                 }
-            });
+                errorElement.textContent = '';
+                return true;
+            };
 
-            const checkFormValidity = () => {
-                const isValid = fields.every(({ id, errorId, validate }) =>
-                    validateField(id, errorId, validate)
-                );
+            // Calculate and display profit percentage
+            const calculateProfitPercentage = () => {
+                const salePrice = parseFloat(document.getElementById('salePrice').value) || 0;
+                const costPrice = parseFloat(document.getElementById('costPrice').value) || 0;
+                const profitPercentageElement = document.getElementById('profitPercentage');
+
+                if (costPrice > 0 && salePrice > costPrice) {
+                    const profitPercentage = ((salePrice - costPrice) / costPrice * 100).toFixed(2);
+                    profitPercentageElement.textContent = `Profit Percentage: ${profitPercentage}%`;
+                } else {
+                    profitPercentageElement.textContent = '';
+                }
+            };
+
+            // Validate form
+            const validateForm = () => {
+                const requiredFields = form.querySelectorAll('input[required], select[required], textarea[required]');
+                const requiredCheckboxGroups = ['product_type', 'category', 'color', 'brand'];
+
+                let isValid = true;
+
+                requiredFields.forEach(field => {
+                    if (!validateField(field)) {
+                        isValid = false;
+                    }
+                });
+
+                requiredCheckboxGroups.forEach(groupName => {
+                    if (!validateCheckboxGroup(groupName)) {
+                        isValid = false;
+                    }
+                });
+
                 submitBtn.disabled = !isValid;
             };
 
+            // Add event listeners
+            form.addEventListener('input', validateForm);
+            form.addEventListener('change', validateForm);
+
+            document.getElementById('salePrice').addEventListener('input', calculateProfitPercentage);
+            document.getElementById('costPrice').addEventListener('input', calculateProfitPercentage);
+
+            // Handle form submission
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
+                validateForm();
 
-                const isValid = fields.every(({ id, errorId, validate }) =>
-                    validateField(id, errorId, validate)
-                );
-
-                if (isValid) {
+                if (!submitBtn.disabled) {
                     try {
                         const formData = new FormData(form);
                         const response = await fetch(form.action, {
@@ -414,6 +378,8 @@
                         if (response.ok) {
                             alert('Product added successfully!');
                             form.reset();
+                            document.getElementById('quantity').value = 1; // Reset default quantity
+                            document.getElementById('profitPercentage').textContent = ''; // Clear profit percentage
                         } else {
                             const errorData = await response.json();
                             alert(`Error: ${errorData.message}`);
@@ -425,8 +391,8 @@
                 }
             });
 
-            // Initial form validity check
-            checkFormValidity();
+            // Initial form validation
+            validateForm();
         });
     </script>
 </body>
