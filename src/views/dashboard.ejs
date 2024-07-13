@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sales Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <style>
+    .chart-container {
+      margin-bottom: 20px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center mt-3 mb-5">Sales Dashboard</h1>
+
+    <div class="row">
+      <!-- Sales Over Time Chart -->
+      <div class="col-12 col-md-6">
+        <div class="chart-container">
+          <h2>Sales Over Time</h2>
+          <canvas id="salesOverTimeChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Sales by Product Type Chart -->
+      <div class="col-12 col-md-6">
+        <div class="chart-container">
+          <h2>Sales by Product Type</h2>
+          <canvas id="salesByProductTypeChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Sales by Category Chart -->
+      <div class="col-12 col-md-6">
+        <div class="chart-container">
+          <h2>Sales by Category</h2>
+          <canvas id="salesByCategoryChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Sales by Brand Chart -->
+      <div class="col-12 col-md-6">
+        <div class="chart-container">
+          <h2>Sales by Brand</h2>
+          <canvas id="salesByBrandChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Top-Selling Products Chart -->
+      <div class="col-12 col-md-6">
+        <div class="chart-container">
+          <h2>Top-Selling Products</h2>
+          <canvas id="topSellingProductsChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Profit Margins Chart -->
+      <div class="col-12 col-md-6">
+        <div class="chart-container">
+          <h2>Profit Margins</h2>
+          <canvas id="profitMarginsChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Payment Methods Chart -->
+      <div class="col-12 col-md-6">
+        <div class="chart-container">
+          <h2>Payment Methods</h2>
+          <canvas id="paymentMethodsChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+
+
+    // Data passed from the server-side controller
+    const salesOverTimeData = <%- JSON.stringify(salesOverTime) %>;
+    const salesByProductTypeData = <%- JSON.stringify(salesByProductType) %>;
+    const salesByCategoryData = <%- JSON.stringify(salesByCategory) %>;
+    const salesByBrandData = <%- JSON.stringify(salesByBrand) %>;
+    const topSellingProductsData = <%- JSON.stringify(topSellingProducts) %>;
+    const profitMarginsData = <%- JSON.stringify(profitMargins) %>;
+    const paymentMethodsData = <%- JSON.stringify(paymentMethods) %>;
+
+    // Chart.js initialization and configuration
+    document.addEventListener('DOMContentLoaded', function() {
+      renderSalesOverTimeChart();
+      renderSalesByProductTypeChart();
+      renderSalesByCategoryChart();
+      renderSalesByBrandChart();
+      renderTopSellingProductsChart();
+      renderProfitMarginsChart();
+      renderPaymentMethodsChart();
+    });
+
+    // Function to render Sales Over Time Chart
+    function renderSalesOverTimeChart() {
+      new Chart(document.getElementById('salesOverTimeChart'), {
+        type: 'line',
+        data: {
+          labels: salesOverTimeData.map(data => data._id),
+          datasets: [{
+            label: 'Total Sales',
+            data: salesOverTimeData.map(data => data.totalSales),
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+          }]
+        },
+        options: {
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Date'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Sales'
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Function to render Sales by Product Type Chart
+    function renderSalesByProductTypeChart() {
+      new Chart(document.getElementById('salesByProductTypeChart'), {
+        type: 'bar',
+        data: {
+          labels: salesByProductTypeData.map(data => data._id),
+          datasets: [{
+            label: 'Total Sales',
+            data: salesByProductTypeData.map(data => data.totalSales),
+            backgroundColor: 'rgb(54, 162, 235)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Sales'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Product Type'
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Function to render Sales by Category Chart
+    function renderSalesByCategoryChart() {
+      new Chart(document.getElementById('salesByCategoryChart'), {
+        type: 'pie',
+        data: {
+          labels: salesByCategoryData.map(data => data._id),
+          datasets: [{
+            label: 'Total Sales',
+            data: salesByCategoryData.map(data => data.totalSales),
+            backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(54, 162, 235)',
+              'rgb(255, 205, 86)',
+              'rgb(75, 192, 192)',
+              'rgb(153, 102, 255)'
+            ],
+            hoverOffset: 4
+          }]
+        }
+      });
+    }
+
+    // Function to render Sales by Brand Chart
+    function renderSalesByBrandChart() {
+      new Chart(document.getElementById('salesByBrandChart'), {
+        type: 'bar',
+        data: {
+          labels: salesByBrandData.map(data => data._id),
+          datasets: [{
+            label: 'Total Sales',
+            data: salesByBrandData.map(data => data.totalSales),
+            backgroundColor: 'rgb(255, 159, 64)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Brand'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Sales'
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Function to render Top-Selling Products Chart
+    function renderTopSellingProductsChart() {
+      new Chart(document.getElementById('topSellingProductsChart'), {
+        type: 'bar',
+        data: {
+          labels: topSellingProductsData.map(data => data._id),
+          datasets: [{
+            label: 'Total Quantity Sold',
+            data: topSellingProductsData.map(data => data.totalQuantity),
+            backgroundColor: 'rgb(75, 192, 192)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Quantity Sold'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Product'
+              }
+            }
+          }
+        }
+      });
+    }
+
+// Function to render Profit Margins Chart
+function renderProfitMarginsChart() {
+  new Chart(document.getElementById('profitMarginsChart'), {
+    type: 'bar',
+    data: {
+      labels: profitMarginsData.map(data => data.product_name),
+      datasets: [{
+        label: 'Profit Margin (%)',
+        data: profitMarginsData.map(data => data.profitMargin),
+        backgroundColor: 'rgb(153, 102, 255)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'Product'
+          }
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'Profit Margin (%)'
+          },
+          suggestedMin: 0
+        }
+      }
+    }
+  });
+}
+
+    // Function to render Payment Methods Chart
+    function renderPaymentMethodsChart() {
+      new Chart(document.getElementById('paymentMethodsChart'), {
+        type: 'doughnut',
+        data: {
+          labels: paymentMethodsData.map(data => data._id),
+          datasets: [{
+            label: 'Payment Method Distribution',
+            data: paymentMethodsData.map(data => data.count),
+            backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(54, 162, 235)',
+              'rgb(255, 205, 86)'
+            ],
+            hoverOffset: 4
+          }]
+        }
+      });
+    }
+  </script>
+</body>
+</html>

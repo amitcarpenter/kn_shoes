@@ -136,6 +136,16 @@
             /* font-weight: bold; */
             color: var(--success-color);
         }
+
+        .color-code {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            vertical-align: middle;
+        }
     </style>
 </head>
 
@@ -201,7 +211,7 @@
             </div>
 
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label class="required">Color</label>
                 <div class="checkbox-group" role="group" aria-labelledby="color_label">
                     <label><input type="checkbox" name="color" value="Black"> Black</label>
@@ -210,7 +220,28 @@
                     <label><input type="checkbox" name="color" value="Other"> Other</label>
                 </div>
                 <div id="color_error" class="error"></div>
+            </div> -->
+
+            <div class="form-group">
+                <label class="required">Color</label>
+                <div class="checkbox-group" role="group" aria-labelledby="color_label">
+                    <label><input type="checkbox" name="color" value="Black"> Black <span class="color-code"
+                            style="background-color: #000000;"></span></label>
+                    <label><input type="checkbox" name="color" value="White"> White <span class="color-code"
+                            style="background-color: #FFFFFF;"></span></label>
+                    <label><input type="checkbox" name="color" value="Red"> Red <span class="color-code"
+                            style="background-color: #FF0000;"></span></label>
+                    <label><input type="checkbox" name="color" value="Blue"> Blue <span class="color-code"
+                            style="background-color: #0000FF;"></span></label>
+                    <label><input type="checkbox" name="color" value="Green"> Green <span class="color-code"
+                            style="background-color: #008000;"></span></label>
+                    <label><input type="checkbox" name="color" value="Yellow"> Yellow <span class="color-code"
+                            style="background-color: #FFFF00;"></span></label>
+                    <label><input type="checkbox" name="color" value="Other"> Other</label>
+                </div>
+                <div id="color_error" class="error"></div>
             </div>
+
 
             <div class="form-group">
                 <label class="required">Product Type</label>
@@ -257,19 +288,12 @@
                     <label><input type="checkbox" name="brand" value="I Plus"> I Plus</label>
                     <label><input type="checkbox" name="brand" value="Loose Chappal"> Loose Chappal</label>
                     <label><input type="checkbox" name="brand" value="Appoxy"> Appoxy</label>
+                    <label><input type="checkbox" name="brand" value="Fancy "> Fancy </label>
                     <label><input type="checkbox" name="brand" value="Non Brand Other"> Non Brand Other</label>
                 </div>
                 <div id="brand_error" class="error"></div>
             </div>
 
-            <!-- <div class="form-group">
-                <label for="payment_method">Payment Method</label>
-                <select id="payment_method" name="payment_method">
-                    <option value="">Select payment method</option>
-                    <option value="Cash">Cash</option>
-                    <option value="Online">Online</option>
-                </select>
-            </div> -->
 
 
             <div class="form-group">
@@ -324,7 +348,7 @@
                     errorElement.textContent = 'This field is required';
                     return false;
                 }
-                if (field.type === 'number' && parseFloat(field.value) <= 0) {
+                if (field.type === 'number' && parseFloat(field.value) <= -1) {
                     errorElement.textContent = 'Value must be greater than 0';
                     return false;
                 }
